@@ -59,7 +59,7 @@ jobs:
           LICENSE_KEY: ${{ secrets.IPINFO_TOKEN }}
         run: |
           curl -L "https://ipinfo.io/data/free/country.csv.gz?token=373c333bc75423" -o contry.csv.gz
-          gzip -d contry.gz
+          gzip -d contry.csv.gz
           mkdir -p geolite2/ipinfo
           mv country.csv geolite2/ipinfo
 
