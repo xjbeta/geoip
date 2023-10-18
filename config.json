@@ -6,7 +6,8 @@
       "args": {
         "country": "./geolite2/GeoLite2-Country-Locations-en.csv",
         "ipv4": "./geolite2/GeoLite2-Country-Blocks-IPv4.csv",
-        "ipv6": "./geolite2/GeoLite2-Country-Blocks-IPv6.csv"
+        "ipv6": "./geolite2/GeoLite2-Country-Blocks-IPv6.csv",
+        "ipinfo": "./geolite2/ipinfo/country.csv"
       }
     },
     {
@@ -127,16 +128,7 @@
       "args": {
         "outputName": "Country.mmdb",
         "overwriteList": [
-          "cn",
-          "private",
-          "cloudflare",
-          "cloudfront",
-          "facebook",
-          "fastly",
-          "google",
-          "netflix",
-          "telegram",
-          "twitter"
+          "cn"
         ]
       }
     },
