@@ -2,7 +2,7 @@ name: Build geoip files
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 4"
+    - cron: "0 0 * * *"
   push:
     branches:
       - master
@@ -54,6 +54,15 @@ jobs:
           rm -f GeoLite2-Country-CSV.zip
           mv GeoLite2* geolite2
 
+      - name: Get IPInfo.io IP2Country
+        env:
+          LICENSE_KEY: ${{ secrets.IPINFO_TOKEN }}
+        run: |
+          curl -L "https://ipinfo.io/data/free/country.csv.gz?token=${LICENSE_KEY}" -o country.csv.gz
+          gzip -d -k country.csv.gz
+          mkdir -p geolite2/ipinfo
+          mv country.csv geolite2/ipinfo
+
       - name: Build geoip files
         run: |
           go run ./
@@ -92,7 +101,7 @@ jobs:
       - name: Move files to publish directory
         run: |
           mkdir -p publish
-          mv ./output/dat/*.dat ./output/dat/*.sha256sum ./output/maxmind/*.mmdb ./output/maxmind/*.sha256sum *.gz *.zip ./publish/
+          mv ./output/maxmind/*.mmdb ./output/maxmind/*.sha256sum *.gz *.zip ./publish/
           cp -fpPR ./output/text ./publish
 
       - name: Git push assets to "release" branch
