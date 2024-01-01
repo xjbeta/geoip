@@ -46,13 +46,6 @@
       }
     },
     {
-      "type": "text",
-      "action": "add",
-      "args": {
-        "inputDir": "./data"
-      }
-    },
-    {
       "type": "private",
       "action": "add"
     }
