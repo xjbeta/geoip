@@ -40,9 +40,7 @@ jobs:
 
       - name: Append more CIDRs
         run: |
-           echo "" > data/google
-           echo "" > data/fastly
-           echo "" > data/cloudfront
+           echo "127.0.0.1/32" > data/private
 #          curl -sSL https://www.gstatic.com/ipranges/goog.json | jq --raw-output '.prefixes[].ipv4Prefix,.prefixes[].ipv6Prefix | select(. != null)' >> data/google
 #          curl -sSL https://www.gstatic.com/ipranges/cloud.json | jq --raw-output '.prefixes[].ipv4Prefix,.prefixes[].ipv6Prefix | select(. != null)' >> data/google
 #          curl -sSL https://api.fastly.com/public-ip-list | jq --raw-output '.addresses[],.ipv6_addresses[]' >> data/fastly
