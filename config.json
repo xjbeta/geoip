@@ -11,41 +11,6 @@
       }
     },
     {
-      "type": "cutter",
-      "action": "remove",
-      "args": {
-        "wantedList": ["cn"],
-        "onlyIPType": "ipv4"
-      }
-    },
-    {
-      "type": "text",
-      "action": "add",
-      "args": {
-        "name": "cn",
-        "uri": "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt",
-        "onlyIPType": "ipv4"
-      }
-    },
-    {
-      "type": "text",
-      "action": "add",
-      "args": {
-        "name": "cn",
-        "uri": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china.txt",
-        "onlyIPType": "ipv4"
-      }
-    },
-    {
-      "type": "text",
-      "action": "add",
-      "args": {
-        "name": "cn",
-        "uri": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt",
-        "onlyIPType": "ipv6"
-      }
-    },
-    {
       "type": "private",
       "action": "add"
     }
@@ -62,14 +27,6 @@
       "type": "v2rayGeoIPDat",
       "action": "output",
       "args": {
-        "outputName": "geoip-only-cn-private.dat",
-        "wantedList": ["cn", "private"]
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
         "outputName": "geoip-asn.dat"
       }
     },
@@ -78,25 +35,14 @@
       "action": "output",
       "args": {
         "oneFilePerList": true,
-        "wantedList": ["cn", "private"]
+        "wantedList": ["private"]
       }
     },
     {
       "type": "maxmindMMDB",
       "action": "output",
       "args": {
-        "outputName": "Country.mmdb",
-        "overwriteList": [
-          "cn"
-        ]
-      }
-    },
-    {
-      "type": "maxmindMMDB",
-      "action": "output",
-      "args": {
-        "outputName": "Country-only-cn-private.mmdb",
-        "wantedList": ["cn", "private"]
+        "outputName": "Country.mmdb"
       }
     },
     {
