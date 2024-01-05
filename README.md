@@ -7,12 +7,11 @@ This project releases GeoIP files automatically every day. It also provides a co
 ## 与上游 [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) 的区别
 - 上游 [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) 使用的海外数据库是 MaxMind 提供的 GeoLite2。 MaxMind 所提供 Geo2Country 这几年的准确度并不好。很多 IP 的位置信息都有问题。 而本工程使用了近几年数据更加准确的 [IPInfo.io](https://ipinfo.io) 的 Free IP to Country 数据库
 - MaxMind 的 Geo2Country 数据库是每周五更新一次，而 ipinfo.io 的 Free IP to Country 数据库是每天更新一次。
+- CI每日生成的MMDB中，并不包含任何新增类别，剔除了ipip-cn的数据库，仅构建原始的ipinfo的mmdb数据库
 
 ## 与官方版 GeoIP 的区别
-- 海外的 IPv4 & IPv6 数据库 使用了[IPInfo.io](https://ipinfo.io) 的 Free IP to Country 数据库 而不是 MaxMind 提供的 GeoLite2
-- 中国大陆 IPv4 地址数据融合了 [IPIP.net](https://github.com/17mon/china_ip_list/blob/master/china_ip_list.txt) 和 [@gaoyifan/china-operator-ip](https://github.com/gaoyifan/china-operator-ip/blob/ip-lists/china.txt)
-- 中国大陆 IPv6 地址数据融合了 IPInfo.io Free IP to Country 和 [@gaoyifan/china-operator-ip](https://github.com/gaoyifan/china-operator-ip/blob/ip-lists/china6.txt)
-- 新增类别（方便有特殊需求的用户使用）：
+- 海外/中国大陆的 IPv4 & IPv6 数据库 使用了[IPInfo.io](https://ipinfo.io) 的 Free IP to Country 数据库 而不是 MaxMind 提供的 GeoLite2
+- 新增类别支持（方便有特殊需求的用户使用，需要自己修改配置文件开启，可以参考config.old）：
   - `geoip:cloudflare`（`GEOIP,CLOUDFLARE`）
   - `geoip:cloudfront`（`GEOIP,CLOUDFRONT`）
   - `geoip:facebook`（`GEOIP,FACEBOOK`）
@@ -24,46 +23,13 @@ This project releases GeoIP files automatically every day. It also provides a co
 
 ## 参考配置
 
-在 [V2Ray](https://github.com/v2fly/v2ray-core) 中使用本项目 `.dat` 格式文件的参考配置：
-
-```json
-"routing": {
-  "rules": [
-    {
-      "type": "field",
-      "outboundTag": "Direct",
-      "ip": [
-        "geoip:cn",
-        "geoip:private",
-        "ext:cn.dat:cn",
-        "ext:private.dat:private",
-        "ext:geoip-only-cn-private.dat:cn",
-        "ext:geoip-only-cn-private.dat:private"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Proxy",
-      "ip": [
-        "geoip:us",
-        "geoip:jp",
-        "geoip:facebook",
-        "geoip:telegram",
-        "ext:geoip-asn.dat:facebook",
-        "ext:geoip-asn.dat:telegram"
-      ]
-    }
-  ]
-}
-```
-
 在 [Clash](https://github.com/Dreamacro/clash) 中使用本项目 `.mmdb` 格式文件的参考配置：
 
 ```yaml
 rules:
-  - GEOIP,PRIVATE,policy,no-resolve
-  - GEOIP,FACEBOOK,policy
-  - GEOIP,CN,policy,no-resolve
+  - GEOIP,CN,policy
+  - GEOIP,US,policy
+  - GEOIP,CountryCode,policy
 ```
 
 在 [Leaf](https://github.com/eycorsican/leaf) 中使用本项目 `.mmdb` 格式文件的参考配置，查看[官方 README](https://github.com/eycorsican/leaf/blob/master/README.zh.md#geoip)。
@@ -91,12 +57,6 @@ rules:
 - **Country.mmdb.sha256sum**：
   - [https://raw.githubusercontent.com/JohnnySun/geoip/release/Country.mmdb.sha256sum](https://raw.githubusercontent.com/JohnnySun/geoip/release/Country.mmdb.sha256sum)
   - [https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country.mmdb.sha256sum](https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country.mmdb.sha256sum)
-- **Country-only-cn-private.mmdb**（精简版 GeoIP，只包含 `GEOIP,CN` 和 `GEOIP,PRIVATE`）：
-  - [https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-only-cn-private.mmdb](https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-only-cn-private.mmdb)
-  - [https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-only-cn-private.mmdb](https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-only-cn-private.mmdb)
-- **Country-only-cn-private.mmdb.sha256sum**：
-  - [https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-only-cn-private.mmdb.sha256sum](https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-only-cn-private.mmdb.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-only-cn-private.mmdb.sha256sum](https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-only-cn-private.mmdb.sha256sum)
 - **Country-asn.mmdb**（精简版 GeoIP，只包含上述新增类别）：
   - [https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-asn.mmdb](https://raw.githubusercontent.com/JohnnySun/geoip/release/Country-asn.mmdb)
   - [https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-asn.mmdb](https://cdn.jsdelivr.net/gh/JohnnySun/geoip@release/Country-asn.mmdb)
