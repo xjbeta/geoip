@@ -17,44 +17,11 @@
   ],
   "output": [
     {
-      "type": "v2rayGeoIPDat",
+      "type": "clashRuleSet",
       "action": "output",
       "args": {
-        "outputName": "geoip.dat"
+        "wantedList": ["cn", "private"]
       }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputName": "geoip-asn.dat"
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "oneFilePerList": true,
-        "wantedList": ["private"]
-      }
-    },
-    {
-      "type": "maxmindMMDB",
-      "action": "output",
-      "args": {
-        "outputName": "Country.mmdb"
-      }
-    },
-    {
-      "type": "maxmindMMDB",
-      "action": "output",
-      "args": {
-        "outputName": "Country-asn.mmdb"
-      }
-    },
-    {
-      "type": "text",
-      "action": "output"
     }
   ]
 }
