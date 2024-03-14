@@ -104,7 +104,7 @@ jobs:
           mkdir -p publish
           # mv ./output/maxmind/*.mmdb ./output/maxmind/*.sha256sum *.gz *.zip ./publish/
           # cp -fpPR ./output/text ./publish
-          cp -fpPR ./output/clash/ipcidr ./publish
+          mv ./output/clash/ipcidr/* ./publish
 
       - name: Git push assets to "release" branch
         run: |
