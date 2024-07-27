@@ -106,6 +106,21 @@ jobs:
           # cp -fpPR ./output/text ./publish
           mv ./output/clash/ipcidr/* ./publish
 
+      - name: Mihomo mrs
+        run: |
+          cd publish
+          for file in *.txt; do
+            mv -- "$file" "${file%.txt}.yaml"
+          done
+          wget $(curl -s https://api.github.com/repos/MetaCubeX/mihomo/releases/tags/Prerelease-Alpha | grep -wo "https.*mihomo-linux-amd64-alpha.*.gz")
+          gunzip *.gz
+          mv mihomo-linux* mihomo
+          chmod 755 mihomo
+          for file in *.yaml; do
+            ./mihomo convert-ruleset ipcidr yaml "$file" "${file%.yaml}.mrs"
+          done
+          rm mihomo
+
       - name: Git push assets to "release" branch
         run: |
           cd publish || exit 1
